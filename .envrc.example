@@ -1,0 +1,2 @@
+# your container name
+export DOCKER_CONTAINER=steam
