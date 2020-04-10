@@ -3,12 +3,15 @@
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 cd "$DIR/.."
+
 docker run \
   --rm \
   -it \
   --name=steamcmd \
   --mount type=bind,source="$(pwd)"/data/Steam,target=/Steam \
   --mount type=bind,source="$(pwd)"/data/configs,target=/configs \
-  -p 27015
+  -p 27015:27015/tcp \
+  -p 27015:27015/udp \
+  -p 27020:27020/udp \
   steam \
-  bash
+  /container_files/scripts/start_cs_go

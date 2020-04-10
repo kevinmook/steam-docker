@@ -1,0 +1,58 @@
+#!/bin/bash -e
+
+APP_ID=740
+SAMPLE_CFG=cs_go.cfg
+LINKED_CONFIG="/configs/$SAMPLE_CFG"
+CFG="$FORCE_INSTALL_DIR/csgo/cfg/server.cfg"
+
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
+cd "$DIR"
+APP_ID="$APP_ID" ./install_app
+
+if [ ! -f "$CFG" ]; then
+  if [ ! -f "$LINKED_CONFIG" ]; then
+    cp "/container_files/sample_configs/$SAMPLE_CFG" "$LINKED_CONFIG"
+  fi
+  ln -s "$LINKED_CONFIG" "$CFG"
+fi
+
+echo >"$STEAM_CMD_DIR/csgo_update.txt" <<EOF
+@ShutdownOnFailedCommand 1
+@NoPromptForPassword 1
+login anonymous
+force_install_dir $FORCE_INSTALL_DIR
+app_update ${APP_ID}
+quit
+EOF
+
+cd "/Steam/apps"
+
+sed -i 's/#!\/bin\/sh/#!\/bin\/bash/g' srcds_run
+
+./srcds_run \
+  -game csgo \
+  -console \
+  +ip 0.0.0.0 \
+  +net_public_adr 0.0.0.0
+
+# "/root/Steam/steamapps/common/Counter-Strike Global Offensive Beta - Dedicated Server/srcds_run" \
+#   -game csgo \
+#   -console \
+#   -autoupdate \
+#   -steamcmd_script ${STEAMAPPDIR}/csgo_update.txt \
+#   -usercon \
+#   +fps_max $SRCDS_FPSMAX \
+#   -tickrate $SRCDS_TICKRATE \
+#   -port $SRCDS_PORT \
+#   +tv_port $SRCDS_TV_PORT \
+#   +clientport $SRCDS_CLIENT_PORT \
+#   -maxplayers_override $SRCDS_MAXPLAYERS \
+#   +game_type $SRCDS_GAMETYPE \
+#   +game_mode $SRCDS_GAMEMODE \
+#   +mapgroup $SRCDS_MAPGROUP \
+#   +map $SRCDS_STARTMAP \
+#   +sv_setsteamaccount $SRCDS_TOKEN \
+#   +rcon_password $SRCDS_RCONPW \
+#   +sv_password $SRCDS_PW \
+#   +sv_region $SRCDS_REGION

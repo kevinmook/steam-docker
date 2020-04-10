@@ -1,0 +1,14 @@
+#!/bin/bash -e
+
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
+if [ ! "$APP_ID" ]; then
+  echo "APP_ID not set, exiting"
+  exit 1
+fi
+
+/root/steamcmd/steamcmd.sh \
+  +login anonymous \
+  +force_install_dir "$FORCE_INSTALL_DIR" \
+  +app_update "$APP_ID" \
+  +quit

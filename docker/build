@@ -3,4 +3,8 @@
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 cd "$DIR/.."
-docker-compose build
+
+mkdir -p "data/Steam"
+mkdir -p "data/configs"
+
+docker build -t steam .
