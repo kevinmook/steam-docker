@@ -9,6 +9,8 @@ docker run \
   --name=steamcmd \
   --mount type=bind,source="$(pwd)"/data/Steam,target=/Steam \
   --mount type=bind,source="$(pwd)"/data/configs,target=/configs \
-  -p 27015
+  -p 27015:27015/tcp \
+  -p 27015:27015/udp \
+  -p 27020:27020/udp \
   steam \
   bash
