@@ -7,7 +7,11 @@ CFG="$FORCE_INSTALL_DIR/csgo/cfg/autoexec.cfg"
 
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
+source /container_files/.envrc
+
 echo "Login token: $LOGIN_TOKEN"
+echo "FORCE_INSTALL_DIR: $FORCE_INSTALL_DIR"
+env
 
 cd "$DIR"
 APP_ID="$APP_ID" ./install_app

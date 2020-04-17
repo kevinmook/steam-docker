@@ -16,7 +16,6 @@ RUN /root/steamcmd/steamcmd.sh +login anonymous +quit
 
 ENV FORCE_INSTALL_DIR /Steam/apps
 ENV STEAM_CMD_DIR /root/steamcmd
-ENV LOGIN_TOKEN
 
 VOLUME ["/Steam"]
 VOLUME ["/configs"]
@@ -24,5 +23,6 @@ VOLUME ["/configs"]
 EXPOSE 27015/tcp 27015/udp 27020/udp
 
 ADD /container_files /container_files
+ADD .envrc /container_files/.envrc
 
 CMD ["/sbin/my_init"]
