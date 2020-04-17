@@ -16,6 +16,7 @@ RUN /root/steamcmd/steamcmd.sh +login anonymous +quit
 
 ENV FORCE_INSTALL_DIR /Steam/apps
 ENV STEAM_CMD_DIR /root/steamcmd
+ENV LOGIN_TOKEN
 
 VOLUME ["/Steam"]
 VOLUME ["/configs"]
