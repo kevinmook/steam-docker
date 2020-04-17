@@ -13,5 +13,6 @@ docker run \
   -p 27015:27015/tcp \
   -p 27015:27015/udp \
   -p 27020:27020/udp \
+  -e LOGIN_TOKEN="$CS_GO_LOGIN_TOKEN" \
   steam \
   /container_files/scripts/start_cs_go

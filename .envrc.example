@@ -1,2 +1,5 @@
 # your container name
 export DOCKER_CONTAINER=steam
+
+# get login tokens from https://steamcommunity.com/dev/managegameservers
+export CS_GO_LOGIN_TOKEN=
